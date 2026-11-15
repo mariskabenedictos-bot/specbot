@@ -113,7 +113,7 @@ def _storm(c: Ctx) -> Step:
 
     return [
         ("SENSOR", watch), ("SENSOR", alert), ("BRAIN", brain), ("ROBOT", dispatch),
-        ("ROBOT", shelter), ("SENSOR", passes), ("ROBOT", blood), ("BRAIN", compare), ("DASHBOARD", done),
+        ("ROBOT", shelter), ("SENSOR", passes), ("ROBOT", blood), ("BRAIN", compare), ("CONSOLE", done),
     ]
 
 
@@ -158,7 +158,7 @@ def _workout(c: Ctx) -> Step:
         c.s["robot"]["at"] = "node"
         return "Session logged (4 this week). Dashboard shows the horn and the plan that clears it."
 
-    return [("SENSOR", skip), ("BRAIN", brain), ("ROBOT", robot), ("ROBOT", reps), ("DASHBOARD", done)]
+    return [("SENSOR", skip), ("BRAIN", brain), ("ROBOT", robot), ("ROBOT", reps), ("CONSOLE", done)]
 
 
 def _sleep(c: Ctx) -> Step:
@@ -204,7 +204,7 @@ def _sleep(c: Ctx) -> Step:
         return "Dashboard updated: CO2, sleep, swab and mood all feed the immune prediction."
 
     return [("SENSOR", co2), ("SENSOR", rest), ("BRAIN", brain), ("ROBOT", swab),
-            ("ROBOT", mood), ("BRAIN", plan), ("DASHBOARD", done)]
+            ("ROBOT", mood), ("BRAIN", plan), ("CONSOLE", done)]
 
 
 def _checkup(c: Ctx) -> Step:
@@ -234,7 +234,7 @@ def _checkup(c: Ctx) -> Step:
         c.s["robot"]["at"] = "node"
         return "Check-up stored. Latest readings shown on the dashboard."
 
-    return [("ROBOT", visit), ("ROBOT", vitals), ("ROBOT", mood), ("DASHBOARD", done)]
+    return [("ROBOT", visit), ("ROBOT", vitals), ("ROBOT", mood), ("CONSOLE", done)]
 
 
 def _co2(c: Ctx) -> Step:
@@ -275,7 +275,7 @@ def _co2(c: Ctx) -> Step:
         return "Dashboard shows the CO2 event and the time spent above the limit."
 
     return [("SENSOR", spike), ("BRAIN", brain), ("ROBOT", symptoms), ("ROBOT", move),
-            ("SENSOR", fixed), ("DASHBOARD", done)]
+            ("SENSOR", fixed), ("CONSOLE", done)]
 
 
 def _vision(c: Ctx) -> Step:
@@ -302,7 +302,7 @@ def _vision(c: Ctx) -> Step:
         c.s["robot"]["at"] = "node"
         return "Head and eyes marked Watch on the body map, with the eye-exam plan."
 
-    return [("ROBOT", card), ("BRAIN", brain), ("ROBOT", scan), ("BRAIN", personal), ("DASHBOARD", done)]
+    return [("ROBOT", card), ("BRAIN", brain), ("ROBOT", scan), ("BRAIN", personal), ("CONSOLE", done)]
 
 
 def _rash(c: Ctx) -> Step:
@@ -340,7 +340,7 @@ def _rash(c: Ctx) -> Step:
         c.s["robot"]["at"] = "node"
         return "Skin and mouth marked on the body map with the plan."
 
-    return [("ROBOT", photo), ("BRAIN", brain), ("ROBOT", swab), ("BRAIN", plan), ("DASHBOARD", done)]
+    return [("ROBOT", photo), ("BRAIN", brain), ("ROBOT", swab), ("BRAIN", plan), ("CONSOLE", done)]
 
 
 def _mood(c: Ctx) -> Step:
@@ -377,7 +377,7 @@ def _mood(c: Ctx) -> Step:
         o["at"], o["slot"] = "gym", 0
         return "Mood and sleep marked Watch, with the plan and a check-in booked for tomorrow."
 
-    return [("SENSOR", sleep), ("ROBOT", checkin), ("BRAIN", brain), ("ROBOT", dinner), ("DASHBOARD", done)]
+    return [("SENSOR", sleep), ("ROBOT", checkin), ("BRAIN", brain), ("ROBOT", dinner), ("CONSOLE", done)]
 
 
 def _eva(c: Ctx) -> Step:
@@ -409,7 +409,7 @@ def _eva(c: Ctx) -> Step:
         c.s["robot"]["at"] = "node"
         return "Fitness and legs updated on the dashboard and body map."
 
-    return [("ROBOT", test), ("BRAIN", brain), ("DASHBOARD", done)]
+    return [("ROBOT", test), ("BRAIN", brain), ("CONSOLE", done)]
 
 
 def _landing(c: Ctx) -> Step:
@@ -444,7 +444,7 @@ def _landing(c: Ctx) -> Step:
         c.s["robot"]["at"] = "node"
         return "Heart and circulation marked on the body map with the landing plan."
 
-    return [("SENSOR", clock), ("BRAIN", brain), ("ROBOT", stand), ("ROBOT", garments), ("DASHBOARD", done)]
+    return [("SENSOR", clock), ("BRAIN", brain), ("ROBOT", stand), ("ROBOT", garments), ("CONSOLE", done)]
 
 
 def _plan(c: Ctx) -> Step:
@@ -475,7 +475,7 @@ def _plan(c: Ctx) -> Step:
     def done(c: Ctx) -> str:
         return "Dashboard back to green where the plan worked."
 
-    return [("BRAIN", start), ("SENSOR", run), ("BRAIN", brain), ("DASHBOARD", done)]
+    return [("BRAIN", start), ("SENSOR", run), ("BRAIN", brain), ("CONSOLE", done)]
 
 
 SCENARIOS: List[Dict[str, Any]] = [

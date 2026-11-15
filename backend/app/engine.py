@@ -130,7 +130,7 @@ def initial_state() -> Dict[str, Any]:
                 "vitals": {"hr": 58, "bp": "118/76", "temp": 36.6, "spo2": 98, "day": 179},
             }),
         },
-        "log": [{"who": "DASHBOARD", "msg": "Simulation ready at mission day 180. No stall horns sounding.", "day": 180}],
+        "log": [{"who": "CONSOLE", "msg": "Simulation ready at mission day 180. No stall horns sounding.", "day": 180}],
         "rev": 0,
         "run": {"scenario": None, "step": 0},
     }
@@ -356,6 +356,22 @@ def evaluate(state: Dict[str, Any], cid: str) -> Dict[str, Any]:
         "note": ", ".join(factors) if factors else "Sleep, stress, vitamin D and storm all fine.",
         "lims": [lim("Horn", "2+", "team")], "src": "IMMUNE21",
     })
+
+    hr = p["vitals"]["hr"]
+    hr_st = "act" if hr >= 110 else "watch" if hr >= 100 else "ok"
+    H["immune"].append({
+        "name": "Heart rate", "val": hr, "unit": "bpm", "st": hr_st,
+        "note": "Repeat the reading and contact the flight surgeon." if hr_st == "act" else "Within the expected resting range.",
+        "lims": [lim("Limit", "110", "team")], "src": "ROBOT",
+    })
+    if hr_st == "act":
+        alerts.append({
+            "tile": "Heart rate", "st": "act", "horn": True,
+            "what": "Heart rate is high during the SPECC check-up",
+            "why": f"{hr} bpm is above the 110 bpm team limit.",
+            "plan": "Rest, repeat the reading, and contact the flight surgeon if it remains high.",
+            "level": "surgeon", "src": "ROBOT",
+        })
 
     st = ("act" if p["shedding"] == "detected with symptoms"
           else "watch" if p["shedding"] == "detected, no symptoms" else "ok")

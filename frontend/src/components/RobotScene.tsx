@@ -191,11 +191,11 @@ function ScanBeam({ active }: { active: boolean }) {
   );
 }
 
-/** Compact WALL-E inspired SPECC: boxy body, treads, binocular eyes on a neck. */
-function WallERobot({ phase }: { phase: RobotPhase }) {
+/** Compact SPECC robot: spherical body, treads, binocular eyes on a neck. */
+function SpeccRobot({ phase }: { phase: RobotPhase }) {
   const ref = useRef<THREE.Group>(null);
   const neck = useRef<THREE.Group>(null);
-  const glow = phase === "scan" ? "#f0b429" : phase === "approach" ? "#7fd0ff" : "#5dcea6";
+  const glow = phase === "scan" ? "#dcd7cb" : phase === "approach" ? "#89cef6" : "#5dcea6";
 
   useFrame((_, dt) => {
     const g = ref.current;
@@ -229,12 +229,12 @@ function WallERobot({ phase }: { phase: RobotPhase }) {
       </mesh>
       {/* Body / cargo bay */}
       <mesh position={[0, 0.38, 0]} castShadow>
-        <boxGeometry args={[0.55, 0.32, 0.48]} />
-        <meshStandardMaterial color="#c45a12" metalness={0.35} roughness={0.45} />
+        <sphereGeometry args={[0.34, 24, 16]} />
+        <meshStandardMaterial color="#b8c0c8" metalness={0.65} roughness={0.3} />
       </mesh>
       <mesh position={[0, 0.52, 0]}>
-        <boxGeometry args={[0.5, 0.06, 0.44]} />
-        <meshStandardMaterial color="#e07a28" metalness={0.3} roughness={0.4} />
+        <sphereGeometry args={[0.28, 20, 12]} />
+        <meshStandardMaterial color="#d6dde4" metalness={0.55} roughness={0.3} />
       </mesh>
       {/* Status light */}
       <mesh position={[0, 0.4, 0.25]}>
@@ -319,7 +319,7 @@ export function RobotScene({
         <hemisphereLight args={["#ffffff", "#9aabbc", 0.55]} />
         <BrightBay />
         <AstronautFigure female={female} />
-        <WallERobot phase={phase} />
+        <SpeccRobot phase={phase} />
         <ScanBeam active={phase === "scan"} />
         <FollowCam phase={phase} />
         <ContactShadows opacity={0.35} scale={8} blur={2} far={5} color="#4a5564" />

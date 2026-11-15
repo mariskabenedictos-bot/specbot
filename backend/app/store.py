@@ -146,7 +146,7 @@ def start(sid: str) -> Optional[Dict[str, Any]]:
         if not sc:
             return None
         _state["run"] = {"scenario": sid, "step": 0}
-        _log("DASHBOARD", f"Scenario started: {sc['title']} (focus: {_focus_name()}). {sc['sub']}")
+        _log("CONSOLE", f"Scenario started: {sc['title']} (focus: {_focus_name()}). {sc['sub']}")
         _bump()
     return publish()
 

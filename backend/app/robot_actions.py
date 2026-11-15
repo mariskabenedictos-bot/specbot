@@ -31,7 +31,7 @@ def _vitals(state: Dict[str, Any], crew: str) -> Dict[str, Any]:
     p = _person(state, crew)
     _go_to_crew(state, crew)
     v = p["vitals"]
-    v["hr"] = round((64 if p["sex"] == "female" else 58) + engine.jitter(5))
+    v["hr"] = round((118 if crew == "maya" else 58) + engine.jitter(3))
     v["bp"] = f"{round(114 + engine.jitter(6))}/{round(74 + engine.jitter(4))}"
     v["temp"] = 36.6 + engine.jitter(0.2)
     v["spo2"] = round(97 + engine.rnd() * 2)

@@ -8,7 +8,7 @@ const FLOW = [
   { id: "SENSOR", title: "Station sensors", sub: "Radiation, CO2, sleep, exercise log" },
   { id: "ROBOT", title: "SPECC robot", sub: "Dosimeter, vitals, swab, voice check-in" },
   { id: "BRAIN", title: "SPECC brain", sub: "Predicts, personalises, plans" },
-  { id: "DASHBOARD", title: "Mission Console", sub: "Shows status and the plan" },
+  { id: "CONSOLE", title: "Mission Console", sub: "Shows status and the plan" },
 ];
 
 type SimTab = "station" | "person";

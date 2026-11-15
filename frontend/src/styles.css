@@ -142,7 +142,7 @@ dl.kv dd{margin:0;font-family:var(--f-mono);font-variant-numeric:tabular-nums;te
 .who.SENSOR{background:var(--sensor-bg);color:var(--sensor)}
 .who.ROBOT{background:var(--robot-tag-bg);color:var(--robot-tag)}
 .who.BRAIN{background:var(--accent-dim);color:var(--accent)}
-.who.DASHBOARD{background:var(--ok-bg);color:var(--ok)}
+.who.CONSOLE{background:var(--ok-bg);color:var(--ok)}
 .log li .d{color:var(--faint);font-family:var(--f-mono);font-size:11px;grid-column:2}
 .peek{display:grid;gap:8px}
 .peek .row{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px}
