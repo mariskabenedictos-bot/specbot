@@ -53,10 +53,23 @@ def test_env_update_feeds_dashboard_eval():
 
 def test_robot_vitals_update_shared_state():
     client = _fresh_app()
+    initial = client.get("/api/state").json()
+    initial_hr = next(
+        t for group in initial["evals"]["maya"]["H"].values() for t in group if t["name"] == "Heart rate"
+    )
+    assert initial_hr["val"] == 64
+    assert initial_hr["st"] == "ok"
+    assert not any(a["tile"] == "Heart rate" for a in initial["evals"]["maya"]["alerts"])
+
     start = client.post("/api/robot/action/start", json={"id": "vitals", "crew": "maya"})
     assert start.status_code == 200
     assert start.json()["state"]["robot"]["busy"] is True
     assert start.json()["state"]["robot"]["activity"] == "navigate"
+    during = start.json()
+    during_hr = next(
+        t for group in during["evals"]["maya"]["H"].values() for t in group if t["name"] == "Heart rate"
+    )
+    assert during_hr["st"] == "ok"
 
     done = client.post("/api/robot/action/complete", json={"id": "vitals", "crew": "maya"})
     assert done.status_code == 200
@@ -65,6 +78,11 @@ def test_robot_vitals_update_shared_state():
     assert body["state"]["robot"]["busy"] is False
     assert body["robotHistory"][-1]["action"] == "vitals"
     assert "simulated" in body["telemetry"]["title"].lower()
+    completed_hr = next(
+        t for group in body["evals"]["maya"]["H"].values() for t in group if t["name"] == "Heart rate"
+    )
+    assert completed_hr["st"] == "act"
+    assert any(a["tile"] == "Heart rate" and a["st"] == "act" for a in body["evals"]["maya"]["alerts"])
 
 
 def test_robot_swab_updates_health_tiles():
